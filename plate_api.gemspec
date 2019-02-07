@@ -5,7 +5,7 @@ require "plate_api/version"
 
 Gem::Specification.new do |spec|
   spec.name        = 'plate_api'
-  spec.version     = "0.0.1"
+  spec.version     = PlateApi::Version
   spec.date        = '2019-01-05'
   spec.summary     = "Connector for the Plate API"
   spec.description = "This gem can be used to connect to the Plate API. It takes care
