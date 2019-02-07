@@ -1,16 +1,32 @@
-require "plate_api/request"
+require "plate_api/get_request"
+require "plate_api/delete_request"
+require "plate_api/post_request"
+require "plate_api/put_request"
 
 module PlateApi
   class Connector
 
 
-    def initialize(secret_key, custom_server=nil)
+    def initialize(public_key, secret_key, custom_server=nil)
       @custom_server = custom_server
+      @public_key = public_key
       @secret_key = secret_key
     end
 
-    def get_url(url="")
-      Request.new(@secret_key, "GET", url, {}, @custom_server).send
+    def get(url="", parameters={})
+      GetRequest.new(@public_key, @secret_key, url, parameters, @custom_server).send
+    end
+
+    def delete(url="", parameters={})
+      DeleteRequest.new(@public_key, @secret_key, url, parameters, @custom_server).send
+    end
+
+    def put(url="", put_params={})
+      PutRequest.new(@public_key, @secret_key, url, put_params, @custom_server).send
+    end
+
+    def post(url="", post_params={})
+      PostRequest.new(@public_key, @secret_key, url, post_params, @custom_server).send
     end
   end
 end

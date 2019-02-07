@@ -26,5 +26,4 @@ end
 
 
 require "irb"
-c = PlateApi::Connector.new("key")
 IRB.start(__FILE__)
