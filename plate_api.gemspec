@@ -5,7 +5,7 @@ require "plate_api/version"
 
 Gem::Specification.new do |spec|
   spec.name        = 'plate_api'
-  spec.version     = PlateApi::Version
+  spec.version     = PlateApi::VERSION
   spec.date        = '2019-01-05'
   spec.summary     = "Connector for the Plate API"
   spec.description = "This gem can be used to connect to the Plate API. It takes care
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata["allowed_push_host"] = "https://rubygems.org"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
