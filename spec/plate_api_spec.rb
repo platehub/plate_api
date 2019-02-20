@@ -3,5 +3,4 @@ RSpec.describe PlateApi do
     expect(PlateApi::VERSION).not_to be nil
   end
 
-
 end
