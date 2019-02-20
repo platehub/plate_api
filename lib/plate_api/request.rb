@@ -23,7 +23,7 @@ module PlateApi
       @path = strip_path(path)
     end
 
-    def send
+    def execute
       response = @connection.send(@method.downcase) do |request|
         request.url url_path
         request.headers['Date'] = request_date
