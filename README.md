@@ -1,8 +1,9 @@
+[![Build Status](https://travis-ci.com/platehub/plate_api.svg?branch=master)](https://travis-ci.com/platehub/plate_api)
+
 # PlateApi
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/plate_api`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to the PlateApi gem. This gem provides a wrapper to communicate with the Plate API, taking care of
+authentication.
 
 ## Installation
 
@@ -22,7 +23,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+[TODO]
 
 ## Development
 
