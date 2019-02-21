@@ -14,6 +14,10 @@ module PlateApi::PlateObject
       @attributes["name"]
     end
 
+    def update(attributes)
+      
+    end
+
     def api_name
       self.class.url_name
     end
