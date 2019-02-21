@@ -50,6 +50,51 @@ RSpec.describe PlateApi::ObjectHandler do
     end
   end
 
+  describe "#create" do
+    context "with input only containing an id of an existing object" do
+
+      context "with id that exists in Plate" do
+        before(:each) do
+          @create_params = {
+            name: "New Site Name",
+            theme_id: 1
+          }
+          allow_any_instance_of(PlateApi::Connector).to receive(:post).with(
+            "companies/1/sites",
+            @create_params
+          ).and_return(create_site_response(5))
+        end
+
+        it "returns a object of the handling_class of the subject" do
+          expect(subject.create(5, @create_params)).to be_a(PlateApi::PlateObject::Site)
+        end
+
+        it "returns a object with the correct id" do
+          expect(subject.create(5, @create_params).id).to eq 5
+        end
+
+        it "returns a object with the correct relations" do
+          r = subject.create(5, @create_params)
+          expect(r.theme).to be_a PlateApi::PlateObject::Theme
+          expect(r.theme.id).to eq 1
+          expect(r.company).to be_a PlateApi::PlateObject::Company
+          expect(r.company.id).to eq 1
+        end
+      end
+
+      context "with id that does not exist in Plate" do
+        before(:each) do
+          allow_any_instance_of(PlateApi::Connector).to receive(:get).with("sites/5").and_return(show_site_not_found_response(5))
+        end
+
+        it "returns nil" do
+          expect(subject.find(5)).to be_nil
+        end
+
+      end
+    end
+  end
+
   describe "#update" do
     context "with valid input for an existing object" do
 

@@ -15,8 +15,9 @@ module PlateApi
       raise ArgumentError.new("`id` given for #find is not valid") unless id
       result = @api_connector.get(resource_path(id))
       if result["data"]
-        return @handling_class.new(result["data"]["id"], result["data"]["attributes"])
+        return @handling_class.new(result["data"]["id"], result["data"]["attributes"], self)
       else
+        puts "No result: #{result}"
         return nil
       end
     end
@@ -27,10 +28,20 @@ module PlateApi
       result = @api_connector.put(resource_path(id), {"data" => attributes})
 
       if result["data"]
-        return @handling_class.new(result["data"]["id"], result["data"]["attributes"])
+        return @handling_class.new(
+          result["data"]["id"],
+          result["data"]["attributes"],
+          result["data"]["relations"],
+          self
+        )
       else
+        puts "No result: #{result}"
         return nil
       end
+    end
+
+    def create(parent_id, attributes)
+
     end
 
     private

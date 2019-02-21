@@ -3,7 +3,12 @@ require "plate_api"
 require "factory_bot"
 require "utils/example_api_responses"
 require 'byebug'
+require 'simplecov'
 
+SimpleCov.start do
+  reset_filters
+  add_filter "/spec/"
+end
 RSpec.configure do |config|
   config.include ExampleApiResponses
   # Enable flags like --only-failures and --next-failure

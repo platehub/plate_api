@@ -28,5 +28,9 @@ module PlateApi
     def post(url="", post_params={})
       PostRequest.new(@public_key, @secret_key, url, post_params, @custom_server).execute
     end
+
+    def site_handler
+      @site_handler ||= ObjectHandler.new(PlateObject::Site, self)
+    end
   end
 end
