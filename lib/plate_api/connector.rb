@@ -26,6 +26,7 @@ module PlateApi
     end
 
     def post(url="", post_params={})
+      puts "Posting #{url}"
       PostRequest.new(@public_key, @secret_key, url, post_params, @custom_server).execute
     end
 

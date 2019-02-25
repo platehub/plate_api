@@ -13,6 +13,10 @@ module ExampleApiResponses
       "data" => {
         "attributes" => {
           "name" => "Site Name"
+        },
+        "relations" => {
+          "theme_id" => 1,
+          "company_id" => 1
         }
       }
     })
@@ -33,6 +37,10 @@ module ExampleApiResponses
       "data" => {
         "attributes" => {
           "name" => new_name
+        },
+        "relations" => {
+          "theme_id" => 1,
+          "company_id" => 1
         }
       }
       })
@@ -56,6 +64,21 @@ module ExampleApiResponses
         "status" => "422"
       }]
     }
+  end
+
+  def create_site_response(company_id, name, theme_id)
+    base_response(1, "sites").deep_merge({
+      "data" => {
+        "attributes" => {
+          "name" => name
+        },
+        "relations" => {
+          "theme_id" => theme_id,
+          "company_id" => company_id
+        }
+      }
+    })
+
   end
 
 end

@@ -16,6 +16,11 @@ module PlateApi::PlateObject
       self.class.api_name
     end
 
+    def reload
+      raise ArgumentError.new("No object_handler is set.") unless @object_handler
+      @object_handler.find(@id)
+    end
+
     def to_s
       "<Plate #{self.class.name.split('::').last}, @id=#{@id}, @attributes=#{@attributes}, @object_handler=#{@object_handler}>"
     end
