@@ -14,11 +14,10 @@ module PlateApi
     def find(id)
       raise ArgumentError.new("`id` given for #find is not valid") unless id
       result = @api_connector.get(resource_path(id))
-      if result["data"]
-        return new_object(result)
+      return if result["data"]
+        new_object(result)
       else
-        puts "No result: #{result}"
-        return nil
+        nil
       end
     end
 
@@ -27,11 +26,10 @@ module PlateApi
       raise ArgumentError.new("`attributes` given for #update is not valid") unless attributes.is_a? Hash
       result = @api_connector.put(resource_path(id), {"data" => attributes})
 
-      if result["data"]
-        return new_object(result)
+      return if result["data"]
+        new_object(result)
       else
-        puts "No result: #{result}"
-        return nil
+        nil
       end
     end
 
@@ -40,22 +38,20 @@ module PlateApi
       raise ArgumentError.new("`attributes` given for #create is not valid") unless attributes.is_a? Hash
       result = @api_connector.post(collection_path(@handling_class.parent_class, parent_id), {"data" => attributes})
 
-      if result["data"]
-        return new_object(result)
+      return if result["data"]
+        new_object(result)
       else
-        puts "No result: #{result}"
-        return nil
+        nil
       end
     end
 
     def delete(id)
       raise ArgumentError.new("`id` given for #find is not valid") unless id
       result = @api_connector.delete(resource_path(id))
-      if result["data"]
-        return new_object(result)
+      return if result["data"]
+        new_object(result)
       else
-        puts "No result: #{result}"
-        return nil
+        nil
       end
     end
 
