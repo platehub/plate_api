@@ -133,4 +133,34 @@ RSpec.describe PlateApi::ObjectHandler do
     end
 
   end
+
+  describe "#delete" do
+    context "with input only containing an id of an existing object" do
+
+      context "with id that exists in Plate" do
+        before(:each) do
+          allow_any_instance_of(PlateApi::Connector).to receive(:delete).with("sites/5").and_return(delete_site_response(5))
+        end
+
+        it "returns a object of the handling_class of the subject" do
+          expect(subject.delete(5)).to be_a(PlateApi::PlateObject::Site)
+        end
+
+        it "returns a object with the correct id" do
+          expect(subject.delete(5).id).to eq 5
+        end
+      end
+
+      context "with id that does not exist in Plate" do
+        before(:each) do
+          allow_any_instance_of(PlateApi::Connector).to receive(:delete).with("sites/5").and_return(delete_site_not_found_response(5))
+        end
+
+        it "returns nil" do
+          expect(subject.delete(5)).to be_nil
+        end
+
+      end
+    end
+  end
 end

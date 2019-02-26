@@ -36,10 +36,21 @@ module PlateApi
     end
 
     def create(parent_id, attributes)
-      raise ArgumentError.new("`parent_id` given for #find is not valid") unless parent_id
-      raise ArgumentError.new("`attributes` given for #find is not valid") unless attributes.is_a? Hash
+      raise ArgumentError.new("`parent_id` given for #create is not valid") unless parent_id
+      raise ArgumentError.new("`attributes` given for #create is not valid") unless attributes.is_a? Hash
       result = @api_connector.post(collection_path(@handling_class.parent_class, parent_id), {"data" => attributes})
 
+      if result["data"]
+        return new_object(result)
+      else
+        puts "No result: #{result}"
+        return nil
+      end
+    end
+
+    def delete(id)
+      raise ArgumentError.new("`id` given for #find is not valid") unless id
+      result = @api_connector.delete(resource_path(id))
       if result["data"]
         return new_object(result)
       else

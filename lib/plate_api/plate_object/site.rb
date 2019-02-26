@@ -17,13 +17,6 @@ module PlateApi::PlateObject
       @attributes["name"]
     end
 
-    def update(attributes)
-      raise ArgumentError.new("Input `attributes` is not a Hash") unless attributes.is_a? Hash
-      raise ArgumentError.new("No object_handler is attached to this object") unless @object_handler
-      new_site = @object_handler.update(@id, attributes)
-      @attributes = new_site.attributes
-    end
-
     def theme
       @theme ||= @object_handler
     end

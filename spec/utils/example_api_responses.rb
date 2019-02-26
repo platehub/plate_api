@@ -21,6 +21,7 @@ module ExampleApiResponses
       }
     })
   end
+  alias_method :delete_site_response, :show_site_response
 
   def show_site_not_found_response(id)
     {
@@ -31,6 +32,7 @@ module ExampleApiResponses
       }]
     }
   end
+  alias_method :delete_site_not_found_response, :show_site_not_found_response
 
   def update_site_response(id, new_name)
     base_response(id, "sites").deep_merge({

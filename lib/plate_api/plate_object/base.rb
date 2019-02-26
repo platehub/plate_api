@@ -21,6 +21,17 @@ module PlateApi::PlateObject
       @object_handler.find(@id)
     end
 
+    def update(attributes)
+      raise ArgumentError.new("Input `attributes` is not a Hash") unless attributes.is_a? Hash
+      raise ArgumentError.new("No object_handler is attached to this object") unless @object_handler
+      new_site = @object_handler.update(@id, attributes)
+      @attributes = new_site.attributes
+    end
+
+    def delete
+      @object_handler.delete(@id)
+    end
+
     def to_s
       "<Plate #{self.class.name.split('::').last}, @id=#{@id}, @attributes=#{@attributes}, @object_handler=#{@object_handler}>"
     end
