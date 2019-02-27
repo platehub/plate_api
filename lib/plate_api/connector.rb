@@ -1,9 +1,3 @@
-require "plate_api/get_request"
-require "plate_api/delete_request"
-require "plate_api/post_request"
-require "plate_api/put_request"
-require "plate_api/object_handler"
-
 module PlateApi
   class Connector
 
@@ -26,12 +20,21 @@ module PlateApi
     end
 
     def post(url="", post_params={})
-      puts "Posting #{url}"
       PostRequest.new(@public_key, @secret_key, url, post_params, @custom_server).execute
     end
 
     def site_handler
+      puts "Goo: #{@site_handler.inspect}"
+
       @site_handler ||= ObjectHandler.new(PlateObject::Site, self)
+    end
+
+    def theme_handler
+      @theme_handler ||= ObjectHandler.new(PlateObject::Theme, self)
+    end
+
+    def company_handler
+      @theme_handler ||= ObjectHandler.new(PlateObject::Company, self)
     end
   end
 end

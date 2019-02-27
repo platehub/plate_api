@@ -1,8 +1,7 @@
-require_relative "plate_object/site"
-require_relative "connector"
-
 module PlateApi
   class ObjectHandler
+
+    attr_reader :api_connector
 
     def initialize(handling_class, api_connector)
       raise ArgumentError.new("`handling_class` given for #new is not valid") unless handling_class
@@ -14,10 +13,11 @@ module PlateApi
     def find(id)
       raise ArgumentError.new("`id` given for #find is not valid") unless id
       result = @api_connector.get(resource_path(id))
-      return if result["data"]
-        new_object(result)
+      if result["data"]
+        return new_object(result["data"])
       else
-        nil
+        puts "No result: #{result}"
+        return nil
       end
     end
 
@@ -26,10 +26,11 @@ module PlateApi
       raise ArgumentError.new("`attributes` given for #update is not valid") unless attributes.is_a? Hash
       result = @api_connector.put(resource_path(id), {"data" => attributes})
 
-      return if result["data"]
-        new_object(result)
+      if result["data"]
+        return new_object(result["data"])
       else
-        nil
+        puts "No result: #{result}"
+        return nil
       end
     end
 
@@ -38,20 +39,36 @@ module PlateApi
       raise ArgumentError.new("`attributes` given for #create is not valid") unless attributes.is_a? Hash
       result = @api_connector.post(collection_path(@handling_class.parent_class, parent_id), {"data" => attributes})
 
-      return if result["data"]
-        new_object(result)
+      if result["data"]
+        return new_object(result["data"])
       else
-        nil
+        puts "No result: #{result}"
+        return nil
       end
     end
 
     def delete(id)
       raise ArgumentError.new("`id` given for #find is not valid") unless id
       result = @api_connector.delete(resource_path(id))
-      return if result["data"]
-        new_object(result)
+      if result["data"]
+        return new_object(result["data"])
       else
-        nil
+        puts "No result: #{result}"
+        return nil
+      end
+    end
+
+    def index(parent_class, parent_id)
+      raise ArgumentError.new("`parent_id` given for #index is not valid") unless parent_id
+      raise ArgumentError.new("`parent_class` given for #index is not valid") unless parent_class
+
+      result = @api_connector.get(collection_path(parent_class, parent_id))
+
+      if result["data"]
+        return result["data"].map{|x| new_object(x)}
+      else
+        puts "No result: #{result}"
+        return nil
       end
     end
 
@@ -60,9 +77,9 @@ module PlateApi
     # Construct a new object of @handling_class, given a succesful api_response
     def new_object(api_response)
       @handling_class.new(
-        api_response["data"]["id"],
-        api_response["data"]["attributes"],
-        api_response["data"]["relations"],
+        api_response["id"],
+        api_response["attributes"],
+        api_response["relations"],
         self
       )
     end

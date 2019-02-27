@@ -1,5 +1,3 @@
-require "plate_api/request"
-
 module PlateApi
   class PostRequest < Request
 

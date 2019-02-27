@@ -1,5 +1,3 @@
-require_relative "base"
-
 module PlateApi::PlateObject
   class Theme < Base
 
