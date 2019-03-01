@@ -31,7 +31,6 @@ module PlateApi
         request.headers['Content-Type'] = 'application/json'
         extra_request_options(request)
       end
-
       return response.body
     end
 

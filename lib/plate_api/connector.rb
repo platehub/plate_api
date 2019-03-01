@@ -5,6 +5,7 @@ module PlateApi
       @custom_server = custom_server
       @public_key = public_key
       @secret_key = secret_key
+      @handling_classes = {}
     end
 
     def get(url="", parameters={})
@@ -23,9 +24,11 @@ module PlateApi
       PostRequest.new(@public_key, @secret_key, url, post_params, @custom_server).execute
     end
 
-    def site_handler
-      puts "Goo: #{@site_handler.inspect}"
+    def handler(handled_class)
+      @handling_classes[handled_class] ||= ObjectHandler.new(handled_class, self)
+    end
 
+    def site_handler
       @site_handler ||= ObjectHandler.new(PlateObject::Site, self)
     end
 
@@ -34,7 +37,11 @@ module PlateApi
     end
 
     def company_handler
-      @theme_handler ||= ObjectHandler.new(PlateObject::Company, self)
+      @company_handler ||= ObjectHandler.new(PlateObject::Company, self)
+    end
+
+    def partner_handler
+      @partner_handler ||= ObjectHandler.new(PlateObject::Partner, self)
     end
   end
 end

@@ -7,8 +7,6 @@ module PlateApi::PlateObject
     HasManyRelations = {}
 
     def initialize(id, attributes, relations, object_handler=nil)
-      raise ArgumentError.new("No `name` found in `attributes` for #new") if attributes["name"].to_s.empty?
-
       set_relation_ids(relations)
 
       @id = id
@@ -53,30 +51,30 @@ module PlateApi::PlateObject
     def self.has_one(name, klass)
       self.attr_accessor "#{name}_id".to_sym
       HasOneRelations[name.to_s] = klass
-      define_has_one_method(name)
+      define_has_one_method(name, klass)
     end
 
-    def self.define_has_one_method(name)
+    def self.define_has_one_method(name, klass)
       define_method(name.to_s) do
         id = self.send("#{name}_id")
         return nil unless id
-
-        @object_handler.api_connector.send("#{name}_handler").find(id)
+        @object_handler.api_connector.handler(Object.const_get(klass)).find(id)
       end
     end
 
     def self.has_many(plural_name, singular_name, klass)
       HasManyRelations[plural_name.to_s] = klass
-      define_has_many_method(singular_name, plural_name)
+      define_has_many_method(singular_name, plural_name, klass)
     end
 
-    def self.define_has_many_method(singular_name, plural_name)
+    def self.define_has_many_method(singular_name, plural_name, klass)
       define_method(plural_name.to_s) do
-        @object_handler.api_connector.send("#{singular_name}_handler").index(self.class, @id)
+        @object_handler.api_connector.handler(Object.const_get(klass)).index(self.class, @id)
       end
     end
 
     def set_relation_ids(relations_attributes)
+      return unless relations_attributes
       self.class::HasOneRelations.keys.each do |relation_name|
         val = relations_attributes["#{relation_name}_id"]
         if val

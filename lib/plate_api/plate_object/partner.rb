@@ -1,15 +1,14 @@
 module PlateApi::PlateObject
-  class Company < Base
+  class Partner < Base
 
-    has_one :partner, "PlateApi::PlateObject::Partner"
-    has_many :sites, :site, "PlateApi::PlateObject::Site"
+    has_many :companies, :company, "PlateApi::PlateObject::Company"
 
     def initialize(id, attributes, relations, object_handler=nil)
       super(id, attributes, relations, object_handler)
     end
 
     def self.api_name
-      "companies"
+      "partners"
     end
 
     def self.parent_class

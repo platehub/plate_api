@@ -1,25 +1,19 @@
 module PlateApi::PlateObject
-  class Site < Base
+  class SiteTranslation < Base
 
-    has_one :theme, "PlateApi::PlateObject::Theme"
-    has_one :company, "PlateApi::PlateObject::Company"
-    has_many :site_translations, :site_translation, "PlateApi::PlateObject::SiteTranslation"
+    has_one :site, "PlateApi::PlateObject::Site"
     has_many :posts, :post, "PlateApi::PlateObject::Post"
     has_many :sections, :section, "PlateApi::PlateObject::Section"
     has_many :rows, :row, "PlateApi::PlateObject::Row"
     has_many :columns, :column, "PlateApi::PlateObject::Column"
     has_many :elements, :element, "PlateApi::PlateObject::Element"
 
-    def name
-      @attributes["name"]
-    end
-
     def self.api_name
-      "sites"
+      "site_translations"
     end
 
     def self.parent_class
-      Company
+      Site
     end
   end
 end
