@@ -46,6 +46,16 @@ module PlateApi::PlateObject
       to_s
     end
 
+    def method_missing(m, *args, &block)
+      if attributes[m.to_s]
+        return attributes[m.to_s]
+      elsif attributes["content"][m.to_s]
+        return attributes["content"][m.to_s]["value"]
+      else
+        super
+      end
+    end
+
     private
 
     def self.has_one(name, klass)
