@@ -8,20 +8,24 @@ module PlateApi
       @handling_classes = {}
     end
 
-    def get(url="", parameters={})
-      GetRequest.new(@public_key, @secret_key, url, parameters, @custom_server).execute
+    def get(url="", parameters={}, response_type=:json)
+      GetRequest.new(@public_key, @secret_key, url, parameters, @custom_server).execute(response_type)
     end
 
-    def delete(url="", parameters={})
-      DeleteRequest.new(@public_key, @secret_key, url, parameters, @custom_server).execute
+    def delete(url="", parameters={}, response_type=:json)
+      DeleteRequest.new(@public_key, @secret_key, url, parameters, @custom_server).execute(response_type)
     end
 
-    def put(url="", put_params={})
-      PutRequest.new(@public_key, @secret_key, url, put_params, @custom_server).execute
+    def put(url="", put_params={}, response_type=:json)
+      PutRequest.new(@public_key, @secret_key, url, put_params, @custom_server).execute(response_type)
     end
 
-    def post(url="", post_params={})
-      PostRequest.new(@public_key, @secret_key, url, post_params, @custom_server).execute
+    def post(url="", post_params={}, response_type=:json)
+      PostRequest.new(@public_key, @secret_key, url, post_params, @custom_server).execute(response_type)
+    end
+
+    def post_multipart(url="", post_params={}, response_type=:json)
+      PostMultipartRequest.new(@public_key, @secret_key, url, post_params, @custom_server).execute(response_type)
     end
 
     def handler(handled_class)

@@ -49,7 +49,7 @@ module PlateApi::PlateObject
     def method_missing(m, *args, &block)
       if attributes[m.to_s]
         return attributes[m.to_s]
-      elsif attributes["content"][m.to_s]
+      elsif attributes["content"] && attributes["content"][m.to_s]
         return attributes["content"][m.to_s]["value"]
       else
         super

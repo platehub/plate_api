@@ -9,10 +9,7 @@ module PlateApi::PlateObject
     has_many :rows, :row, "PlateApi::PlateObject::Row"
     has_many :columns, :column, "PlateApi::PlateObject::Column"
     has_many :elements, :element, "PlateApi::PlateObject::Element"
-
-    def name
-      @attributes["name"]
-    end
+    has_many :attachments, :attachment, "PlateApi::PlateObject::Attachment"
 
     def self.api_name
       "sites"
