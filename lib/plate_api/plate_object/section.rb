@@ -2,7 +2,7 @@ module PlateApi::PlateObject
   class Section < Base
 
     has_one :post, "PlateApi::PlateObject::Post"
-    has_many :rows, :row, "PlateApi::PlateObject::Row"
+    has_many :rows, :row, "PlateApi::PlateObject::Row", true
     has_many :columns, :column, "PlateApi::PlateObject::Column"
     has_many :elements, :element, "PlateApi::PlateObject::Element"
 

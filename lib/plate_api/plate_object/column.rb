@@ -2,7 +2,7 @@ module PlateApi::PlateObject
   class Column < Base
 
     has_one :row, "PlateApi::PlateObject::Row"
-    has_many :elements, :element, "PlateApi::PlateObject::Element"
+    has_many :elements, :element, "PlateApi::PlateObject::Element", true
 
     def self.api_name
       "columns"

@@ -63,18 +63,20 @@ RSpec.describe PlateApi::ObjectHandler do
             "companies/5/sites",
             {"data" => @create_params}
           ).and_return(create_site_response(5, "New Site Name", 2))
+
+          @parent = double(id: 5, api_name: "companies", class: PlateApi::PlateObject::Company)
         end
 
         it "returns a object of the handling_class of the subject" do
-          expect(subject.create(5, @create_params)).to be_a(PlateApi::PlateObject::Site)
+          expect(subject.create(@parent, @create_params)).to be_a(PlateApi::PlateObject::Site)
         end
 
         it "returns a object with an integer id" do
-          expect(subject.create(5, @create_params).id).to be_an Integer
+          expect(subject.create(@parent, @create_params).id).to be_an Integer
         end
 
         it "returns a object with the correct relations" do
-          r = subject.create(5, @create_params)
+          r = subject.create(@parent, @create_params)
           expect(r.theme_id).to eq 2
           expect(r.company_id).to eq 5
         end

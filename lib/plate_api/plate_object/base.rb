@@ -62,14 +62,21 @@ module PlateApi::PlateObject
       end
     end
 
-    def self.has_many(plural_name, singular_name, klass)
+    def self.has_many(plural_name, singular_name, klass, define_create_method=false)
       HasManyRelations[plural_name.to_s] = klass
-      define_has_many_method(singular_name, plural_name, klass)
+      define_has_many_method(plural_name, klass)
+      define_create_method(singular_name, klass) if define_create_method
     end
 
-    def self.define_has_many_method(singular_name, plural_name, klass)
+    def self.define_has_many_method(plural_name, klass)
       define_method(plural_name.to_s) do
         @object_handler.api_connector.handler(Object.const_get(klass)).index(self.class, @id)
+      end
+    end
+
+    def self.define_create_method(singular_name, klass)
+      define_method("create_#{singular_name}") do |create_attributes|
+        @object_handler.api_connector.handler(Object.const_get(klass)).create(self, create_attributes)
       end
     end
 
