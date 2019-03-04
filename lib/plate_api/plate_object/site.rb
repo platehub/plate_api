@@ -18,5 +18,11 @@ module PlateApi::PlateObject
     def self.parent_class
       Company
     end
+
+    def create_attachment(file, extra_parameters={})
+      raise ArgumentError.new("No File is given as input") unless file.is_a? File
+      parameters = extra_parameters.merge({file: file})
+      @object_handler.api_connector.handler(PlateApi::PlateObject::Attachment).create(self, parameters, :post_multipart)
+    end
   end
 end

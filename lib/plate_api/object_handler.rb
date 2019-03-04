@@ -34,10 +34,17 @@ module PlateApi
       end
     end
 
-    def create(parent, attributes)
+    def create(parent, attributes, create_method=:post)
       raise ArgumentError.new("`parent` given for #create is not valid") unless parent
       raise ArgumentError.new("`attributes` given for #create is not valid") unless attributes.is_a? Hash
-      result = @api_connector.post(collection_path(parent.class, parent.id), {"data" => attributes})
+      parameters = case create_method
+      when :post
+        {"data" => attributes}
+      when :post_multipart
+        attributes
+      end
+
+      result = @api_connector.send(create_method, collection_path(parent.class, parent.id), parameters)
 
       if result["data"]
         return new_object(result["data"])

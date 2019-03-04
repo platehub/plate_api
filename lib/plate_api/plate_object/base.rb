@@ -7,12 +7,9 @@ module PlateApi::PlateObject
     HasManyRelations = {}
 
     def initialize(id, attributes, relations, object_handler=nil)
-      set_relation_ids(relations)
-
       @id = id
-      @attributes = attributes
-      @relations = relations
       @object_handler = object_handler
+      initialize_state(attributes, relations)
     end
 
     def api_name
@@ -21,17 +18,19 @@ module PlateApi::PlateObject
 
     def reload
       raise ArgumentError.new("No object_handler is set.") unless @object_handler
-      @object_handler.find(@id)
+      reinitialize(@object_handler.find(@id))
+      return self
     end
 
     def update(attributes)
       raise ArgumentError.new("Input `attributes` is not a Hash") unless attributes.is_a? Hash
       raise ArgumentError.new("No object_handler is attached to this object") unless @object_handler
-      if new_site = @object_handler.update(@id, attributes)
-        @attributes = new_site.attributes
+      if new_object = @object_handler.update(@id, attributes)
+        reinitialize(new_object)
       else
         raise ArgumentError.new("The update was unsuccesful.")
       end
+      return self
     end
 
     def delete
@@ -56,10 +55,24 @@ module PlateApi::PlateObject
       end
     end
 
+    def ==(other)
+      return other.id == @id && other.class == self.class
+    end
+
     private
 
+    def reinitialize(new_object)
+      initialize_state(new_object.attributes, new_object.relations)
+    end
+
+    def initialize_state(attributes, relations)
+      set_relation_ids(relations)
+      @attributes = attributes
+      @relations = relations
+    end
+
     def self.has_one(name, klass)
-      self.attr_accessor "#{name}_id".to_sym
+      self.attr_accessor "#{name}_id"
       HasOneRelations[name.to_s] = klass
       define_has_one_method(name, klass)
     end

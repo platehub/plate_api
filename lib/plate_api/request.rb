@@ -9,13 +9,14 @@ require "json"
 module PlateApi
   class Request
     DefaultApiBaseEndpoint = "https://www.startwithplate.com/api/v2"
+    HttpAdapter = Faraday.default_adapter
 
     def initialize(public_key, secret, method, path, custom_server=nil)
       base_api_endpoint = custom_server ? custom_server : DefaultApiBaseEndpoint
 
       @connection = ::Faraday.new(url: base_api_endpoint) do |faraday|
-        faraday.adapter     Faraday.default_adapter
         extra_builder_options(faraday)
+        faraday.adapter     HttpAdapter
       end
 
       @public_key = public_key

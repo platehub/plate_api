@@ -21,9 +21,31 @@ Or install it yourself as:
 
     $ gem install plate_api
 
-## Usage
+## Getting started
 
-[TODO]
+To get started with a simple connector:
+
+```
+# Initialze a connector
+con == PlateApi::Connector.new("{{public_key}}", "{{secret_key}}")
+
+# Initialize a site handler
+sh = con.site_handler
+
+# Find information of a specific site with id == 822
+site = sh.find(822)
+
+# Find all posts in this site
+posts = site.posts
+
+# Find all elements in the first post of this site
+first_post = posts.first
+elements = first_post.elements
+
+# Update the content field 'body' of the first element
+element = elements.first
+element.update(body: "<h2>My new text</h2>")
+```
 
 ## Development
 
