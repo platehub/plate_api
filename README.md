@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.com/platehub/plate_api.svg?branch=master)](https://travis-ci.com/platehub/plate_api)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/1e1dafadc880983ce63a/maintainability)](https://codeclimate.com/github/platehub/plate_api/maintainability)
+[![Gem Version](https://badge.fury.io/rb/plate_api.svg)](https://badge.fury.io/rb/plate_api)
 # PlateApi
 
 Welcome to the PlateApi gem. This gem provides a wrapper to communicate with the Plate API, taking care of
