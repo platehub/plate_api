@@ -5,6 +5,13 @@ FactoryBot.define do
 
     skip_create
     initialize_with { new(secret, public_key) }
+  end
 
+  factory :object_handler, class: "PlateApi::ObjectHandler" do
+    connector {build(:connector)}
+    handled_class {PlateApi::PlateObject::Site}
+
+    skip_create
+    initialize_with { new(handled_class, connector) }
   end
 end

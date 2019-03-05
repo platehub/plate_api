@@ -34,6 +34,7 @@ module PlateApi::PlateObject
     end
 
     def delete
+      raise ArgumentError.new("No object_handler is attached to this object") unless @object_handler
       @object_handler.delete(@id)
     end
 

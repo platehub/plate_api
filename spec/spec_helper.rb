@@ -9,9 +9,10 @@ end
 require "bundler/setup"
 require "plate_api"
 require "factory_bot"
-require "utils/example_api_responses"
 require 'byebug'
 require 'webmock/rspec'
+
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
 require 'request_stubs'
 
