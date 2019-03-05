@@ -1,13 +1,16 @@
+require 'simplecov'
+require 'simplecov-console'
+
+
+SimpleCov.start do
+  add_filter "/spec"
+end
 require "bundler/setup"
 require "plate_api"
 require "factory_bot"
 require "utils/example_api_responses"
 require 'byebug'
-require 'simplecov'
 
-# SimpleCov.start do
-#   add_filter "/spec/"
-# end
 
 RSpec.configure do |config|
   config.include ExampleApiResponses
