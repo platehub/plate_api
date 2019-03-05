@@ -32,11 +32,8 @@ To get started with a simple connector:
 # Initialze a connector
 con == PlateApi::Connector.new("{{public_key}}", "{{secret_key}}")
 
-# Initialize a site handler
-sh = con.site_handler
-
 # Find information of a specific site with id == 822
-site = sh.find(822)
+site = con.sites.find(822)
 
 # Find all posts in this site
 posts = site.posts
