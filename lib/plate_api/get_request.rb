@@ -1,5 +1,3 @@
-require "plate_api/request"
-
 module PlateApi
   class GetRequest < Request
     def initialize(public_key, secret, path, parameters={}, custom_server=nil)

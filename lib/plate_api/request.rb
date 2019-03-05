@@ -3,18 +3,20 @@ require 'faraday_middleware'
 require 'time'
 require "base64"
 require "openssl"
+require "json"
 
 
 module PlateApi
   class Request
     DefaultApiBaseEndpoint = "https://www.startwithplate.com/api/v2"
+    HttpAdapter = Faraday.default_adapter
 
     def initialize(public_key, secret, method, path, custom_server=nil)
       base_api_endpoint = custom_server ? custom_server : DefaultApiBaseEndpoint
 
       @connection = ::Faraday.new(url: base_api_endpoint) do |faraday|
-        faraday.response    :json
-        faraday.adapter     Faraday.default_adapter
+        extra_builder_options(faraday)
+        faraday.adapter     HttpAdapter
       end
 
       @public_key = public_key
@@ -23,16 +25,20 @@ module PlateApi
       @path = strip_path(path)
     end
 
-    def execute
+    def execute(response_type=:raw)
       response = @connection.send(@method.downcase) do |request|
         request.url url_path
         request.headers['Date'] = request_date
         request.headers['Authorization'] = calculate_signature
-        request.headers['Content-Type'] = 'application/json'
         extra_request_options(request)
       end
 
-      return response.body
+      return case response_type
+      when :raw
+        return response.body
+      when :json
+        return JSON.parse(response.body)
+      end
     end
 
     def request_date
@@ -60,6 +66,9 @@ module PlateApi
     end
 
     def extra_request_options(request)
+    end
+
+    def extra_builder_options(request)
     end
 
     def strip_path(path)

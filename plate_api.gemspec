@@ -9,7 +9,8 @@ Gem::Specification.new do |spec|
   spec.date        = '2019-01-05'
   spec.summary     = "Connector for the Plate API"
   spec.description = "This gem can be used to connect to the Plate API. It takes care
-  of the authentication procedure. "
+  of the authentication procedure. It also provides a basic wrapper around the Plate API,
+  so objects in Plate can be manipulated as local objects."
   spec.authors     = ["David Kortleven"]
   spec.email       = 'david@getplate.com'
   spec.files       = ["lib/plate_api.rb"]
@@ -33,11 +34,15 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "faraday", "~> 0.15.4"
   spec.add_dependency "faraday_middleware", "~> 0.13.1"
+  spec.add_dependency "mimemagic", "~> 0.3.3"
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "webmock", "~> 3.0"
   spec.add_development_dependency "factory_bot", "~> 5.0.1"
+  spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "simplecov-console"
   spec.add_development_dependency "byebug"
 
 end
