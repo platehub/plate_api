@@ -42,7 +42,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "factory_bot", "~> 5.0.1"
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "simplecov-console"
-  spec.add_development_dependency "coveralls"
   spec.add_development_dependency "byebug"
 
 end
