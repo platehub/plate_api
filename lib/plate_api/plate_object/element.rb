@@ -8,7 +8,7 @@ module PlateApi::PlateObject
     end
 
     def self.parent_class
-      Post
+      Column
     end
   end
 end

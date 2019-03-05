@@ -32,20 +32,27 @@ module PlateApi
       @handling_classes[handled_class] ||= ObjectHandler.new(handled_class, self)
     end
 
-    def site_handler
-      @site_handler ||= ObjectHandler.new(PlateObject::Site, self)
+    def self.plate_object_classes
+      {
+        sites: PlateApi::PlateObject::Site,
+        partners: PlateApi::PlateObject::Partner,
+        companies: PlateApi::PlateObject::Company,
+        themes: PlateApi::PlateObject::Theme,
+        site_translations: PlateApi::PlateObject::SiteTranslation,
+        posts: PlateApi::PlateObject::Post,
+        sections: PlateApi::PlateObject::Section,
+        rows: PlateApi::PlateObject::Row,
+        columns: PlateApi::PlateObject::Column,
+        elements: PlateApi::PlateObject::Element
+      }
     end
 
-    def theme_handler
-      @theme_handler ||= ObjectHandler.new(PlateObject::Theme, self)
+    self.plate_object_classes.each do |k,v|
+      define_method(k) do
+        return handler(v)
+      end
     end
 
-    def company_handler
-      @company_handler ||= ObjectHandler.new(PlateObject::Company, self)
-    end
 
-    def partner_handler
-      @partner_handler ||= ObjectHandler.new(PlateObject::Partner, self)
-    end
   end
 end

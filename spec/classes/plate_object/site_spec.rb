@@ -17,5 +17,8 @@ RSpec.describe PlateApi::PlateObject::Site do
     end
   end
 
+  include_examples("has parent_class", PlateApi::PlateObject::Company)
+  include_examples("has api_name", "sites") 
+
 
 end

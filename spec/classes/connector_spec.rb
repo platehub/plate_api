@@ -31,4 +31,66 @@ RSpec.describe PlateApi::Connector do
     end
   end
 
+  describe "#delete" do
+    let(:request_object) { double(execute: "true")}
+
+    it "creates a new instance of GetRequest" do
+      allow(PlateApi::DeleteRequest).to receive(:new).and_return(request_object)
+      expect(request_object).to receive(:execute)
+      subject.delete(test_path)
+    end
+  end
+
+  describe "#post" do
+    let(:request_object) { double(execute: "true")}
+
+    it "creates a new instance of GetRequest" do
+      allow(PlateApi::PostRequest).to receive(:new).and_return(request_object)
+      expect(request_object).to receive(:execute)
+      subject.post(test_path)
+    end
+  end
+
+  describe "#put" do
+    let(:request_object) { double(execute: "true")}
+
+    it "creates a new instance of GetRequest" do
+      allow(PlateApi::PutRequest).to receive(:new).and_return(request_object)
+      expect(request_object).to receive(:execute)
+      subject.put(test_path)
+    end
+  end
+
+  describe "#post_multipart" do
+    let(:request_object) { double(execute: "true")}
+
+    it "creates a new instance of GetRequest" do
+      allow(PlateApi::PostMultipartRequest).to receive(:new).and_return(request_object)
+      expect(request_object).to receive(:execute)
+      subject.post_multipart(test_path)
+    end
+  end
+
+  describe "#handler" do
+    it "returns an object_handler" do
+      expect(subject.handler(PlateApi::PlateObject::Site)).to be_a PlateApi::ObjectHandler
+    end
+
+    it "returns an object_handler with the handled class" do
+      expect(subject.handler(PlateApi::PlateObject::Site).handling_class).to eq PlateApi::PlateObject::Site
+    end
+  end
+
+  describe "handler templates" do
+    describe "sites" do
+      it "returns an object_handler" do
+        expect(subject.sites).to be_a PlateApi::ObjectHandler
+      end
+
+      it "returns an object_handler with the handled class" do
+        expect(subject.sites.handling_class).to eq PlateApi::PlateObject::Site
+      end
+    end
+  end
+
 end

@@ -2,6 +2,7 @@ module PlateApi
   class ObjectHandler
 
     attr_reader :api_connector
+    attr_reader :handling_class
 
     def initialize(handling_class, api_connector)
       raise ArgumentError.new("`handling_class` given for #new is not valid") unless handling_class
