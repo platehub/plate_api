@@ -43,7 +43,8 @@ module PlateApi
         sections: PlateApi::PlateObject::Section,
         rows: PlateApi::PlateObject::Row,
         columns: PlateApi::PlateObject::Column,
-        elements: PlateApi::PlateObject::Element
+        elements: PlateApi::PlateObject::Element,
+        attachments: PlateApi::PlateObject::Attachment
       }
     end
 
