@@ -93,8 +93,8 @@ module PlateApi::PlateObject
     end
 
     def self.define_has_many_method(plural_name, klass)
-      define_method(plural_name.to_s) do
-        @object_handler.api_connector.handler(Object.const_get(klass)).index(self.class, @id)
+      define_method(plural_name.to_s) do |params={}|
+        @object_handler.api_connector.handler(Object.const_get(klass)).index(self.class, @id, params)
       end
     end
 

@@ -66,11 +66,11 @@ module PlateApi
       end
     end
 
-    def index(parent_class, parent_id)
+    def index(parent_class, parent_id, extra_params={})
       raise ArgumentError.new("`parent_id` given for #index is not valid") unless parent_id
       raise ArgumentError.new("`parent_class` given for #index is not valid") unless parent_class
 
-      result = @api_connector.get(collection_path(parent_class, parent_id))
+      result = @api_connector.get(collection_path(parent_class, parent_id), extra_params)
       if result["data"]
         return result["data"].map{|x| new_object(x)}
       else
