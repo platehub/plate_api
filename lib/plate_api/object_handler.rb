@@ -17,7 +17,7 @@ module PlateApi
       if result["data"]
         return new_object(result["data"])
       else
-        puts "No result: #{result}"
+        puts "PlateApi: No success: #{result}"
         return nil
       end
     end
@@ -30,7 +30,7 @@ module PlateApi
       if result["data"]
         return new_object(result["data"])
       else
-        puts "No result: #{result}"
+        puts "PlateApi: No success: #{result}"
         return nil
       end
     end
@@ -50,7 +50,7 @@ module PlateApi
       if result["data"]
         return new_object(result["data"])
       else
-        puts "No result: #{result}"
+        puts "PlateApi: No success: #{result}"
         return nil
       end
     end
@@ -61,7 +61,7 @@ module PlateApi
       if result["data"]
         return new_object(result["data"])
       else
-        puts "No result: #{result}"
+        puts "PlateApi: No success: #{result}"
         return nil
       end
     end
@@ -74,7 +74,17 @@ module PlateApi
       if result["data"]
         return result["data"].map{|x| new_object(x)}
       else
-        puts "No result: #{result}"
+        puts "PlateApi: No success: #{result}"
+        return nil
+      end
+    end
+
+    def index_total_count(parent)
+      result = @api_connector.get(collection_path(parent.class, parent.id), per_page: 1)
+      if result["meta"]
+        return result["meta"]["pagination"]["total_records"]
+      else
+        puts "PlateApi: No success: #{result}"
         return nil
       end
     end

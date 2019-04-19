@@ -12,4 +12,7 @@ require "plate_api/put_request"
 
 
 module PlateApi
+  def self.new(public_key, private_key)
+    PlateApi::Connector.new(public_key, secret_key)
+  end
 end

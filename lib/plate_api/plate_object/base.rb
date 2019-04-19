@@ -88,13 +88,21 @@ module PlateApi::PlateObject
 
     def self.has_many(plural_name, singular_name, klass, define_create_method=false)
       HasManyRelations[plural_name.to_s] = klass
-      define_has_many_method(plural_name, klass)
+      define_has_many_methods(plural_name, klass)
       define_create_method(singular_name, klass) if define_create_method
     end
 
-    def self.define_has_many_method(plural_name, klass)
+    def self.define_has_many_methods(plural_name, klass)
       define_method(plural_name.to_s) do |params={}|
-        @object_handler.api_connector.handler(Object.const_get(klass)).index(self.class, @id, params)
+        @object_handler.api_connector.handler(
+          Object.const_get(klass)
+        ).index(self.class, @id, params)
+      end
+
+      define_method("#{plural_name}_total_count") do
+        @object_handler.api_connector.handler(
+          Object.const_get(klass)
+        ).index_total_count(self)
       end
     end
 
