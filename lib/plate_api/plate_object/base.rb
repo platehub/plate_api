@@ -73,8 +73,9 @@ module PlateApi::PlateObject
     end
 
     def self.has_one(name, klass)
+      HasOneRelations[self.name] ||= {}
       self.attr_accessor "#{name}_id"
-      HasOneRelations[name.to_s] = klass
+      HasOneRelations[self.name][name.to_s] = klass
       define_has_one_method(name, klass)
     end
 
@@ -87,7 +88,8 @@ module PlateApi::PlateObject
     end
 
     def self.has_many(plural_name, singular_name, klass, define_create_method=false)
-      HasManyRelations[plural_name.to_s] = klass
+      HasManyRelations[self.name] ||= {}
+      HasManyRelations[self.name][plural_name.to_s] = klass
       define_has_many_methods(plural_name, klass)
       define_create_method(singular_name, klass) if define_create_method
     end
@@ -113,8 +115,10 @@ module PlateApi::PlateObject
     end
 
     def set_relation_ids(relations_attributes)
+      HasOneRelations[self.class.name] ||= {}
+
       return unless relations_attributes
-      self.class::HasOneRelations.keys.each do |relation_name|
+      self.class::HasOneRelations[self.class.name].keys.each do |relation_name|
         val = relations_attributes["#{relation_name}_id"]
         if val
           send("#{relation_name}_id=", val)
