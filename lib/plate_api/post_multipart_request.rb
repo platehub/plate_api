@@ -3,6 +3,7 @@ require 'mimemagic'
 module PlateApi
   class PostMultipartRequest < Request
     HttpAdapter = :net_http
+    MimeMagic.add('image/jpeg', extensions: "jfif")
 
     def initialize(public_key, secret, path, parameters={}, custom_server=nil)
       super(public_key, secret, "POST", path, custom_server)
