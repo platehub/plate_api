@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    plate_api (1.1.4)
+    plate_api (1.1.5)
       faraday (~> 0.15.4)
       faraday_middleware (~> 0.13.1)
       mimemagic (~> 0.3.3)
@@ -34,7 +34,7 @@ GEM
     i18n (1.5.3)
       concurrent-ruby (~> 1.0)
     json (2.1.0)
-    mimemagic (0.3.3)
+    mimemagic (0.3.4)
     minitest (5.11.3)
     multipart-post (2.1.1)
     public_suffix (3.0.3)
