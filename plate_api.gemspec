@@ -8,11 +8,11 @@ Gem::Specification.new do |spec|
   spec.version     = PlateApi::VERSION
   spec.date        = '2019-01-05'
   spec.summary     = "Connector for the Plate API"
-  spec.description = "This gem can be used to connect to the Plate API. It takes care
+  spec.description = "This gem can be used to connect to the Plate API. It takes care 
   of the authentication procedure. It also provides a basic wrapper around the Plate API,
   so objects in Plate can be manipulated as local objects."
-  spec.authors     = ["David Kortleven"]
-  spec.email       = 'david@getplate.com'
+  spec.authors     = ["David Kortleven", "Harmen Fuite"]
+  spec.email       = ['david@getplate.com', 'harmen@getplate.com']
   spec.files       = ["lib/plate_api.rb"]
   spec.license       = 'MIT'
 
