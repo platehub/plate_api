@@ -44,6 +44,7 @@ module PlateApi
         rows: PlateApi::PlateObject::Row,
         columns: PlateApi::PlateObject::Column,
         elements: PlateApi::PlateObject::Element,
+        content_objects: PlateApi::PlateObject::ContentObject,
         attachments: PlateApi::PlateObject::Attachment
       }
     end
