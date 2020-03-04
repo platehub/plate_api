@@ -9,6 +9,7 @@ module PlateApi::PlateObject
     has_many :rows, :row, "PlateApi::PlateObject::Row"
     has_many :columns, :column, "PlateApi::PlateObject::Column"
     has_many :elements, :element, "PlateApi::PlateObject::Element"
+    has_many :content_objects, :content_object, "PlateApi::PlateObject::ContentObject"
     has_many :attachment_folders, :attachment_folder, "PlateApi::PlateObject::AttachmentFolder"
     has_many :attachments, :attachment, "PlateApi::PlateObject::Attachment"
 
