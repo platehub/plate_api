@@ -1,5 +1,5 @@
 require "faraday"
-require 'faraday_middleware'
+# require 'faraday_middleware'
 require 'time'
 require "base64"
 require "openssl"
