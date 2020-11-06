@@ -43,7 +43,7 @@ RSpec.describe PlateApi::ObjectHandler do
         end
 
         it "returns nil" do
-          expect(subject.find(5)).to be_nil
+          expect{subject.find(5)}.to raise_error Errors::ApiError
         end
 
       end
@@ -114,7 +114,7 @@ RSpec.describe PlateApi::ObjectHandler do
           end
 
           it "returns nil" do
-            expect(subject.update(5, {"name" => nil})).to be_nil
+            expect{subject.update(5, {"name" => nil})}.to raise_error Errors::ApiError
           end
         end
       end
@@ -128,7 +128,7 @@ RSpec.describe PlateApi::ObjectHandler do
         end
 
         it "returns nil" do
-          expect(subject.update(5, {"name" => "A New Name"})).to be_nil
+          expect{subject.update(5, {"name" => "A New Name"})}.to raise_error
         end
 
       end
@@ -159,7 +159,7 @@ RSpec.describe PlateApi::ObjectHandler do
         end
 
         it "returns nil" do
-          expect(subject.delete(5)).to be_nil
+          expect{subject.delete(5)}.to raise_error Errors::ApiError
         end
 
       end
