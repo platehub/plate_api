@@ -18,7 +18,7 @@ module PlateApi
         return new_object(result["data"])
       else
         puts "PlateApi: No success: #{result}"
-        return nil
+        raise Errors::ApiError.new(result)
       end
     end
 
@@ -31,7 +31,7 @@ module PlateApi
         return new_object(result["data"])
       else
         puts "PlateApi: No success: #{result}"
-        return nil
+        raise Errors::ApiError.new(result)
       end
     end
 
@@ -51,7 +51,7 @@ module PlateApi
         return new_object(result["data"])
       else
         puts "PlateApi: No success: #{result}"
-        return nil
+        raise Errors::ApiError.new(result)
       end
     end
 
@@ -62,7 +62,7 @@ module PlateApi
         return new_object(result["data"])
       else
         puts "PlateApi: No success: #{result}"
-        return nil
+        raise Errors::ApiError.new(result)
       end
     end
 
@@ -75,7 +75,7 @@ module PlateApi
         return result["data"].map{|x| new_object(x)}
       else
         puts "PlateApi: No success: #{result}"
-        return nil
+        raise Errors::ApiError.new(result)
       end
     end
 
@@ -85,7 +85,7 @@ module PlateApi
         return result["meta"]["pagination"]["total_records"]
       else
         puts "PlateApi: No success: #{result}"
-        return nil
+        raise Errors::ApiError.new(result)
       end
     end
 
