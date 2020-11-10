@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    plate_api (1.1.8)
+    plate_api (1.2.0)
       faraday (~> 1.0.1)
       mimemagic (~> 0.3.3)
 

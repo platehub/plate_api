@@ -42,10 +42,9 @@ RSpec.describe PlateApi::ObjectHandler do
           allow_any_instance_of(PlateApi::Connector).to receive(:get).with("sites/5").and_return(show_site_not_found_response(5))
         end
 
-        it "returns nil" do
-          expect(subject.find(5)).to be_nil
+        it "raises Response error" do
+          expect { subject.find(5) }.to raise_error Error::Response
         end
-
       end
     end
   end
@@ -113,8 +112,8 @@ RSpec.describe PlateApi::ObjectHandler do
             ).and_return(update_site_invalid_response(5))
           end
 
-          it "returns nil" do
-            expect(subject.update(5, {"name" => nil})).to be_nil
+          it "raises Response error" do
+            expect { subject.update(5, { "name" => nil }) }.to raise_error Error::Response
           end
         end
       end
@@ -127,13 +126,11 @@ RSpec.describe PlateApi::ObjectHandler do
           ).and_return(update_site_not_found_response(5))
         end
 
-        it "returns nil" do
-          expect(subject.update(5, {"name" => "A New Name"})).to be_nil
+        it "raises Response error" do
+          expect { subject.update(5, { "name" => "A New Name" }) }.to raise_error Error::Response
         end
-
       end
     end
-
   end
 
   describe "#delete" do
@@ -158,10 +155,9 @@ RSpec.describe PlateApi::ObjectHandler do
           allow_any_instance_of(PlateApi::Connector).to receive(:delete).with("sites/5").and_return(delete_site_not_found_response(5))
         end
 
-        it "returns nil" do
-          expect(subject.delete(5)).to be_nil
+        it "raises Response error" do
+          expect { subject.delete(5) }.to raise_error Error::Response
         end
-
       end
     end
   end
