@@ -17,12 +17,16 @@ module PlateApi
       request.body = @post_parameters
     end
 
+    def mime_type(full_path)
+      IO.popen(["file", "--brief", "--mime-type", full_path], in: :close, err: :close) { |io| io.read.chomp }
+    end
+
     def map_parameters(parameters)
       parameters.keys.each do |key|
         val = parameters[key]
         if val.is_a? File
           full_path = File.expand_path(val)
-          mime_type = IO.popen(["file", "--brief", "--mime-type", full_path], in: :close, err: :close) { |io| io.read.chomp }
+          mime_type = self.mime_type(full_path)
           parameters[key] = Faraday::UploadIO.new(full_path, mime_type)
         end
       end
