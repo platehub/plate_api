@@ -31,7 +31,14 @@ RSpec.describe PlateApi::PostMultipartRequest do
     expect(@request.mime_type(path)).to eq("image/jpeg")
   end
 
-  it "correctly determines the mime_type of a JFIF file" do
+  it "correctly determines the mime_type of a JPG file" do
+    file = File.new("spec/support/example_files/sample.jpg")
+    path = File.expand_path(file)
+
+    expect(@request.mime_type(path)).to eq("image/jpeg")
+  end
+
+  it "correctly determines the mime_type of a PNG file" do
     file = File.new("spec/support/example_files/sample.png")
     path = File.expand_path(file)
 
