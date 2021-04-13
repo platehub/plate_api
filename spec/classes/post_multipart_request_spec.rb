@@ -44,4 +44,25 @@ RSpec.describe PlateApi::PostMultipartRequest do
 
     expect(@request.mime_type(path)).to eq("image/png")
   end
+
+  it "manually determines the mime_type of a pdf file" do
+    file = File.new("spec/support/example_files/sample.pdf")
+    path = File.expand_path(file)
+
+    expect(@request.mime_type_fallback(path)).to eq("application/pdf")
+  end
+
+  it "manually determines the mime_type of a PNG file" do
+    file = File.new("spec/support/example_files/sample.png")
+    path = File.expand_path(file)
+
+    expect(@request.mime_type_fallback(path)).to eq("image/png")
+  end
+
+  it "manually determines the mime_type of a JPEG file" do
+    file = File.new("spec/support/example_files/sample.jpg")
+    path = File.expand_path(file)
+
+    expect(@request.mime_type_fallback(path)).to eq("image/jpeg")
+  end
 end
