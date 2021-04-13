@@ -18,7 +18,16 @@ module PlateApi
     end
 
     def mime_type(full_path)
-      IO.popen(["file", "--brief", "--mime-type", full_path], in: :close, err: :close) { |io| io.read.chomp }
+      begin
+        IO.popen(["file", "--brief", "--mime-type", full_path], in: :close, err: :close) { |io| io.read.chomp }
+      rescue SystemCallError
+        # determine mime_type based on extension as a fallback, in case `file` is not installed on the client machine
+        mime_type_fallback(full_path)
+      end
+    end
+
+    def mime_type_fallback(full_path)
+      MIME::Types.type_for(full_path).first.content_type
     end
 
     def map_parameters(parameters)
@@ -26,7 +35,7 @@ module PlateApi
         val = parameters[key]
         if val.is_a? File
           full_path = File.expand_path(val)
-          mime_type = self.mime_type(full_path)
+          mime_type = mime_type(full_path)
           parameters[key] = Faraday::UploadIO.new(full_path, mime_type)
         end
       end

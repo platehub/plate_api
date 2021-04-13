@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "faraday_middleware", "~> 0.13.1"
   # spec.add_dependency "mimemagic", "~> 0.3.10"
 
+  spec.add_development_dependency "mime-types", "~> 3.3.1"
   spec.add_development_dependency "bundler", "~> 2.1.4"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.0"

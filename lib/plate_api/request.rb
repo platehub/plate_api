@@ -1,22 +1,22 @@
 require "faraday"
 # require 'faraday_middleware'
-require 'time'
+require "time"
 require "base64"
 require "openssl"
 require "json"
-
+require "mime-types"
 
 module PlateApi
   class Request
     DefaultApiBaseEndpoint = "https://www.startwithplate.com/api/v2"
     HttpAdapter = Faraday.default_adapter
 
-    def initialize(public_key, secret, method, path, custom_server=nil)
+    def initialize(public_key, secret, method, path, custom_server = nil)
       base_api_endpoint = custom_server ? custom_server : DefaultApiBaseEndpoint
 
       @connection = ::Faraday.new(url: base_api_endpoint) do |faraday|
         extra_builder_options(faraday)
-        faraday.adapter     HttpAdapter
+        faraday.adapter HttpAdapter
       end
 
       @public_key = public_key
@@ -25,20 +25,20 @@ module PlateApi
       @path = strip_path(path)
     end
 
-    def execute(response_type=:raw)
+    def execute(response_type = :raw)
       response = @connection.send(@method.downcase) do |request|
         request.url url_path
-        request.headers['Date'] = request_date
-        request.headers['Authorization'] = calculate_signature
+        request.headers["Date"] = request_date
+        request.headers["Authorization"] = calculate_signature
         extra_request_options(request)
       end
 
       return case response_type
-      when :raw
-        return response.body
-      when :json
-        return JSON.parse(response.body)
-      end
+             when :raw
+               return response.body
+             when :json
+               return JSON.parse(response.body)
+             end
     end
 
     def request_date
@@ -72,7 +72,7 @@ module PlateApi
     end
 
     def strip_path(path)
-      path.gsub(/^\/|\/$/, '')
+      path.gsub(/^\/|\/$/, "")
     end
   end
 end
