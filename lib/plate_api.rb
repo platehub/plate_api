@@ -9,7 +9,7 @@ require "plate_api/delete_request"
 require "plate_api/post_request"
 require "plate_api/post_multipart_request"
 require "plate_api/put_request"
-require "plate_api/error"
+require "plate_api/response_error"
 
 
 module PlateApi

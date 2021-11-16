@@ -17,7 +17,7 @@ module PlateApi
       if result["data"]
         return new_object(result["data"])
       else
-        raise Error::Response, result
+        raise ResponseError, result
       end
     end
 
@@ -29,7 +29,7 @@ module PlateApi
       if result["data"]
         return new_object(result["data"])
       else
-        raise Error::Response, result
+        raise ResponseError, result
       end
     end
 
@@ -48,7 +48,7 @@ module PlateApi
       if result["data"]
         return new_object(result["data"])
       else
-        raise Error::Response, result
+        raise ResponseError, result
       end
     end
 
@@ -58,7 +58,7 @@ module PlateApi
       if result["data"]
         return new_object(result["data"])
       else
-        raise Error::Response, result
+        raise ResponseError, result
       end
     end
 
@@ -70,7 +70,7 @@ module PlateApi
       if result["data"]
         return result["data"].map{|x| new_object(x)}
       else
-        raise Error::Response, result
+        raise ResponseError, result
       end
     end
 
@@ -79,7 +79,7 @@ module PlateApi
       if result["meta"]
         return result["meta"]["pagination"]["total_records"]
       else
-        raise Error::Response, result
+        raise ResponseError, result
       end
     end
 
