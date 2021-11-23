@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    plate_api (1.2.4)
+    plate_api (1.2.5)
       faraday (~> 1.0.1)
       mime-types (~> 3.3.1)
 
@@ -32,7 +32,7 @@ GEM
       concurrent-ruby (~> 1.0)
     mime-types (3.3.1)
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2021.0225)
+    mime-types-data (3.2021.1115)
     minitest (5.14.1)
     multipart-post (2.1.1)
     public_suffix (4.0.5)
