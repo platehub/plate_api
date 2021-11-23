@@ -18,7 +18,10 @@ RSpec.describe PlateApi::PlateObject::Site do
   end
 
   include_examples("has parent_class", PlateApi::PlateObject::Company)
-  include_examples("has api_name", "sites") 
+  include_examples("has api_name", "sites")
 
-
+  # TODO: Create specs for relations
+  # include_examples("has has_many relation", :posts) do
+  #   let(:subject) { described_class.new(1, {"name" => "A Name"}, {}) }
+  # end
 end

@@ -148,7 +148,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Run Specs with Docker
 ```bash
 docker build -t plate_api_gem .
-docker run --rm -t plate_api_gem rspec
+docker run --rm -it plate_api_gem rspec
 ```
 
 ## License

@@ -4,4 +4,3 @@ RUN mkdir /plate_api
 WORKDIR /plate_api
 COPY . /plate_api
 RUN bin/setup
-RUN bundle install
