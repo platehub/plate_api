@@ -14,7 +14,7 @@ module PlateApi
     def initialize(public_key, secret, method, path, custom_server = nil)
       base_api_endpoint = custom_server ? custom_server : DefaultApiBaseEndpoint
 
-      @connection = ::Faraday.new(url: base_api_endpoint, request: { timeout: 600 }) do |faraday|
+      @connection = ::Faraday.new(url: base_api_endpoint, request: { timeout: 900 }) do |faraday|
         extra_builder_options(faraday)
         faraday.adapter HttpAdapter
       end
