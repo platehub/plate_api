@@ -11,3 +11,5 @@
 .rspec_status
 coverage
 /secrets
+
+.byebug_history

@@ -12,7 +12,7 @@ module PlateApi
     HttpAdapter = Faraday.default_adapter
 
     def initialize(public_key, secret, method, path, custom_server = nil)
-      base_api_endpoint = custom_server ? custom_server : DefaultApiBaseEndpoint
+      base_api_endpoint = custom_server || DefaultApiBaseEndpoint
 
       @connection = ::Faraday.new(url: base_api_endpoint, request: { timeout: 900 }) do |faraday|
         extra_builder_options(faraday)
@@ -33,12 +33,12 @@ module PlateApi
         extra_request_options(request)
       end
 
-      return case response_type
-             when :raw
-               return response.body
-             when :json
-               return JSON.parse(response.body)
-             end
+      case response_type
+      when :raw
+        response.body
+      when :json
+        JSON.parse(response.body)
+      end
     end
 
     def request_date
@@ -50,9 +50,9 @@ module PlateApi
                        "#{@connection.host}\n" +
                        "#{@connection.path_prefix}/#{@path}\n" +
                        "#{url_parameters}\n" +
-                       "#{request_date}"
+                       request_date.to_s
       signature = Base64.strict_encode64(OpenSSL::HMAC.digest("SHA512", @secret, string_to_sign))
-      return "hmac #{@public_key}:#{signature}"
+      "hmac #{@public_key}:#{signature}"
     end
 
     private
@@ -65,14 +65,12 @@ module PlateApi
       ""
     end
 
-    def extra_request_options(request)
-    end
+    def extra_request_options(request); end
 
-    def extra_builder_options(request)
-    end
+    def extra_builder_options(request); end
 
     def strip_path(path)
-      path.gsub(/^\/|\/$/, "")
+      path.gsub(%r{^/|/$}, "")
     end
   end
 end
